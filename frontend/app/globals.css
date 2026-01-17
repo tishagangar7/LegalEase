@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+
+.test {
+  @apply bg-red-500 !important;
+}
+
+@tailwind utilities;
