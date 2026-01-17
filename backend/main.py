@@ -103,25 +103,36 @@ async def analyze_text(request: TextAnalysisRequest):
     Analyze pasted text (no file upload needed)
     """
     try:
+        print(f"DEBUG: Request received")
+        print(f"DEBUG: Text length: {len(request.text)}")
+        print(f"DEBUG: Reading level: {request.reading_level}")
+        
         original_text = request.text
         reading_level = request.reading_level
         
         if len(original_text) < 100:
+            print(f"DEBUG: Text too short ({len(original_text)} chars)")
             raise HTTPException(
                 status_code=400, 
                 detail="Text is too short (minimum 100 characters)"
             )
         
         # Generate summary
+        print("DEBUG: Calling generate_summary...")
         summary = generate_summary(original_text)
+        print(f"DEBUG: Summary: {summary[:50]}...")
         
         # Simplify
+        print("DEBUG: Calling simplify_legal_text...")
         simplification_result = simplify_legal_text(original_text, reading_level)
+        print(f"DEBUG: Simplification complete")
         
         # Identify red flags
+        print("DEBUG: Calling identify_red_flags...")
         red_flags = identify_red_flags(original_text)
+        print(f"DEBUG: Found {len(red_flags)} red flags")
         
-        return {
+        result = {
             "success": True,
             "summary": summary,
             "original_text": original_text,
@@ -131,10 +142,17 @@ async def analyze_text(request: TextAnalysisRequest):
             "red_flags": red_flags,
             "reading_level": reading_level
         }
+        
+        print("DEBUG: Returning result")
+        return result
     
+    except HTTPException:
+        raise
     except Exception as e:
+        print(f"ERROR in analyze_text: {str(e)}")
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
-
 # Explain specific text endpoint
 class ExplainRequest(BaseModel):
     text: str
