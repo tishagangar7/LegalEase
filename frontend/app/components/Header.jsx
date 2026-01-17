@@ -15,6 +15,7 @@ export default function Header({ showBackButton = false }) {
     { name: "Examples", href: "/examples" },
     { name: "Pricing", href: "/pricing" },
     { name: "Contact", href: "/contact" },
+    { name: "About", href: "/about" },
   ];
 
   return (
