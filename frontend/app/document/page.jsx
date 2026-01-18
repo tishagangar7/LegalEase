@@ -1,106 +1,244 @@
+// // "use client";
+
+// // // import LayoutWrapper from "@/app/components/LayoutWrapper";
+// // import LayoutWrapper from "../components/LayoutWrapper";
+// // import { BookOpen } from "lucide-react";
+
+// // export default function DocumentPage() {
+// //   return (
+// //     <LayoutWrapper showBackButton={true}>
+// //       <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
+// //         <main className="container mx-auto px-6 py-12">
+// //           <div className="max-w-6xl mx-auto">
+// //             <div className="flex items-center gap-3 mb-8">
+// //               <BookOpen className="w-8 h-8 text-maroon-700" />
+// //               <h1 className="text-3xl font-bold text-gray-900">Document Analysis</h1>
+// //             </div>
+            
+// //             <div className="bg-white rounded-2xl p-8 shadow-xl border border-amber-100">
+// //               <h2 className="text-2xl font-bold text-gray-900 mb-6">AI Summary</h2>
+// //               <div className="p-6 bg-amber-50 rounded-xl border border-amber-200">
+// //                 <p className="text-brown-700">
+// //                   This is where your AI-generated document summary will appear.
+// //                   In a real application, this would show the analyzed document content.
+// //                 </p>
+// //               </div>
+              
+// //               <div className="mt-8">
+// //                 <h3 className="text-xl font-semibold text-brown-800 mb-4">Uploaded Content:</h3>
+// //                 <div className="p-4 bg-gray-50 rounded-lg">
+// //                   <p className="text-gray-600">
+// //                     The text from your upload would appear here for review.
+// //                   </p>
+// //                 </div>
+// //               </div>
+// //             </div>
+// //           </div>
+// //         </main>
+// //       </div>
+// //     </LayoutWrapper>
+// //   );
+// // }
+// "use client";
+
+// import { useEffect, useState } from "react";
+// import { useRouter } from "next/navigation";
+// import LayoutWrapper from "../components/LayoutWrapper";
+// import { BookOpen, AlertTriangle, FileText, Copy } from "lucide-react";
+
+// export default function DocumentPage() {
+//   const router = useRouter();
+//   const [analysisData, setAnalysisData] = useState(null);
+//   const [loading, setLoading] = useState(true);
+
+//   useEffect(() => {
+//     // Get analysis result from sessionStorage
+//     const storedData = sessionStorage.getItem("analysisResult");
+    
+//     if (storedData) {
+//       setAnalysisData(JSON.parse(storedData));
+//     } else {
+//       // No data, redirect back to home
+//       router.push("/");
+//     }
+    
+//     setLoading(false);
+//   }, [router]);
+
+//   const copyToClipboard = (text) => {
+//     navigator.clipboard.writeText(text);
+//     alert("Copied to clipboard!");
+//   };
+
+//   if (loading) {
+//     return (
+//       <LayoutWrapper showBackButton={true}>
+//         <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white flex items-center justify-center">
+//           <div className="text-center">
+//             <div className="w-16 h-16 border-4 border-maroon-700 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+//             <p className="text-brown-700 text-lg">Loading analysis...</p>
+//           </div>
+//         </div>
+//       </LayoutWrapper>
+//     );
+//   }
+
+//   if (!analysisData) {
+//     return null;
+//   }
+
+//   const getSeverityColor = (severity) => {
+//     switch (severity?.toLowerCase()) {
+//       case "high":
+//         return "bg-red-50 border-red-300 text-red-800";
+//       case "medium":
+//         return "bg-yellow-50 border-yellow-300 text-yellow-800";
+//       case "low":
+//         return "bg-blue-50 border-blue-300 text-blue-800";
+//       default:
+//         return "bg-gray-50 border-gray-300 text-gray-800";
+//     }
+//   };
+
+//   return (
+//     <LayoutWrapper showBackButton={true}>
+//       <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
+//         <main className="container mx-auto px-6 py-12">
+//           <div className="max-w-6xl mx-auto">
+//             {/* Header */}
+//             <div className="flex items-center gap-3 mb-8">
+//               <BookOpen className="w-8 h-8 text-maroon-700" />
+//               <h1 className="text-3xl font-bold text-gray-900">Document Analysis</h1>
+//             </div>
+
+//             <div className="space-y-6">
+//               {/* Summary Section */}
+//               <div className="bg-white rounded-2xl p-8 shadow-xl border border-amber-100">
+//                 <div className="flex items-center justify-between mb-4">
+//                   <h2 className="text-2xl font-bold text-gray-900">📄 AI Summary</h2>
+//                   <button
+//                     onClick={() => copyToClipboard(analysisData.summary)}
+//                     className="flex items-center gap-2 px-4 py-2 bg-amber-100 hover:bg-amber-200 rounded-lg transition-colors"
+//                   >
+//                     <Copy className="w-4 h-4" />
+//                     <span className="text-sm font-medium">Copy</span>
+//                   </button>
+//                 </div>
+//                 <div className="p-6 bg-amber-50 rounded-xl border border-amber-200">
+//                   <p className="text-brown-700 text-lg leading-relaxed">
+//                     {analysisData.summary}
+//                   </p>
+//                 </div>
+//               </div>
+
+//               {/* Simplified Text */}
+//               <div className="bg-white rounded-2xl p-8 shadow-xl border border-amber-100">
+//                 <div className="flex items-center justify-between mb-4">
+//                   <h2 className="text-2xl font-bold text-gray-900">✨ Simplified Version</h2>
+//                   <button
+//                     onClick={() => copyToClipboard(analysisData.simplified_text)}
+//                     className="flex items-center gap-2 px-4 py-2 bg-amber-100 hover:bg-amber-200 rounded-lg transition-colors"
+//                   >
+//                     <Copy className="w-4 h-4" />
+//                     <span className="text-sm font-medium">Copy</span>
+//                   </button>
+//                 </div>
+//                 <div className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border border-green-200">
+//                   <p className="text-gray-800 text-base leading-relaxed whitespace-pre-wrap">
+//                     {analysisData.simplified_text}
+//                   </p>
+//                 </div>
+//                 <div className="mt-4 flex items-center gap-6 text-sm text-brown-600">
+//                   <span>Original: {analysisData.original_length} characters</span>
+//                   <span>Simplified: {analysisData.simplified_length} characters</span>
+//                   <span className="font-semibold text-maroon-700">
+//                     Reading Level: {analysisData.reading_level || "5th grade"}
+//                   </span>
+//                 </div>
+//               </div>
+
+//               {/* Red Flags Section */}
+//               {analysisData.red_flags && analysisData.red_flags.length > 0 && (
+//                 <div className="bg-white rounded-2xl p-8 shadow-xl border border-amber-100">
+//                   <div className="flex items-center gap-3 mb-6">
+//                     <AlertTriangle className="w-7 h-7 text-red-600" />
+//                     <h2 className="text-2xl font-bold text-gray-900">
+//                       🚩 Red Flags Detected ({analysisData.red_flags.length})
+//                     </h2>
+//                   </div>
+//                   <div className="space-y-4">
+//                     {analysisData.red_flags.map((flag, index) => (
+//                       <div
+//                         key={index}
+//                         className={`p-5 rounded-xl border-2 ${getSeverityColor(flag.severity)}`}
+//                       >
+//                         <div className="flex items-start justify-between gap-4 mb-2">
+//                           <span className="font-bold text-sm uppercase tracking-wide">
+//                             {flag.severity} Risk
+//                           </span>
+//                         </div>
+//                         <div className="mb-3 p-3 bg-white/50 rounded-lg">
+//                           <p className="font-semibold text-gray-900 italic">
+//                             "{flag.clause}"
+//                           </p>
+//                         </div>
+//                         <p className="text-sm leading-relaxed">
+//                           <span className="font-semibold">Concern:</span> {flag.concern}
+//                         </p>
+//                       </div>
+//                     ))}
+//                   </div>
+//                 </div>
+//               )}
+
+//               {/* Original Text */}
+//               {analysisData.original_text && (
+//                 <div className="bg-white rounded-2xl p-8 shadow-xl border border-amber-100">
+//                   <h3 className="text-xl font-semibold text-brown-800 mb-4 flex items-center gap-2">
+//                     <FileText className="w-5 h-5" />
+//                     Original Document
+//                   </h3>
+//                   <div className="p-6 bg-gray-50 rounded-xl border border-gray-200 max-h-96 overflow-y-auto">
+//                     <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-wrap font-mono">
+//                       {analysisData.original_text}
+//                     </p>
+//                   </div>
+//                 </div>
+//               )}
+
+//               {/* Action Buttons */}
+//               <div className="flex gap-4 justify-center">
+//                 <button
+//                   onClick={() => router.push("/")}
+//                   className="px-8 py-4 bg-gradient-to-r from-maroon-700 to-brown-800 text-white font-bold rounded-xl hover:from-maroon-800 hover:to-brown-900 transition-all shadow-lg"
+//                 >
+//                   Analyze Another Document
+//                 </button>
+//               </div>
+//             </div>
+//           </div>
+//         </main>
+//       </div>
+//     </LayoutWrapper>
+//   );
+// }
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-// import LayoutWrapper from "@/app/components/LayoutWrapper";
+import { useRouter } from "next/navigation";
 import LayoutWrapper from "../components/LayoutWrapper";
 import { BookOpen, Highlighter, Sparkles, FileText, MessageSquare, Copy, Download, X, Zap, Shield, Users, ChevronRight } from "lucide-react";
 
+const API_BASE_URL = "http://127.0.0.1:8000";
+
 export default function DocumentPage() {
-  // State for the document text DEMO TEST -- should be what the user uploaded or pasted in
-  const [documentText] = useState(`CONFIDENTIALITY AGREEMENT
-
-This Confidentiality Agreement (the "Agreement") is entered into as of [Effective Date] by and between:
-[Company Name], a [State] corporation ("Disclosing Party"), and
-[Recipient Name], an individual ("Receiving Party").
-
-1. DEFINITION OF CONFIDENTIAL INFORMATION
-For purposes of this Agreement, "Confidential Information" shall include all information or material that has or could have commercial value or other utility in the business in which Disclosing Party is engaged. This includes, but is not limited to:
-- Business plans and strategies
-- Financial information and projections
-- Customer lists and data
-- Technical specifications and designs
-- Marketing plans and research
-- Trade secrets and proprietary information
-
-2. OBLIGATIONS OF RECEIVING PARTY
-Receiving Party shall hold and maintain the Confidential Information in strictest confidence for the sole and exclusive benefit of the Disclosing Party. Receiving Party shall carefully restrict access to Confidential Information to employees, contractors, and third parties as is reasonably required and shall require those persons to sign nondisclosure restrictions at least as protective as those in this Agreement.
-
-3. TIME PERIOD
-The nondisclosure provisions of this Agreement shall survive the termination of this Agreement and Receiving Party's duty to hold Confidential Information in confidence shall remain in effect until the Confidential Information no longer qualifies as a trade secret or until Disclosing Party sends Receiving Party written notice releasing Receiving Party from this Agreement, whichever occurs first.
-
-4. EXCEPTIONS TO CONFIDENTIALITY
-Receiving Party shall have no obligation to maintain the confidentiality of information that:
-(a) Was in the public domain at the time it was disclosed or has entered the public domain through no fault of Receiving Party;
-(b) Was known to Receiving Party, without restriction, at the time of disclosure;
-(c) Is disclosed with the prior written consent of Disclosing Party;
-(d) Becomes known to Receiving Party, without restriction, from a source other than Disclosing Party without breach of this Agreement;
-(e) Is independently developed by Receiving Party without use of the Confidential Information.
-
-5. REMEDIES
-The parties acknowledge and agree that due to the unique and sensitive nature of the Confidential Information, any breach of this Agreement would cause irreparable harm for which damages and other legal remedies would be inadequate. Consequently, the parties agree that, in addition to any other remedies available at law, the non-breaching party shall be entitled to seek immediate injunctive relief and other equitable remedies to prevent such breach.
-
-6. GOVERNING LAW AND JURISDICTION
-This Agreement shall be governed by and construed in accordance with the laws of the State of California without regard to its conflict of law principles. Any legal action or proceeding arising under this Agreement will be brought exclusively in the federal or state courts located in Santa Clara County, California, and the parties hereby consent to personal jurisdiction and venue therein.
-
-7. MISCELLANEOUS
-This Agreement represents the entire understanding between the parties concerning the subject matter herein and supersedes all prior discussions, agreements, and understandings. This Agreement may not be amended except in writing signed by both parties. If any provision of this Agreement is found to be unenforceable, the remainder shall be enforced as fully as possible.
-
-IN WITNESS WHEREOF, the parties have executed this Confidentiality Agreement as of the Effective Date.
-
-DISCLOSING PARTY:
-______________________________
-Name: 
-Title: 
-Date: 
-
-RECEIVING PARTY:
-______________________________
-Name: 
-Title: 
-Date: `);
-
-  // State for AI summary
-  const [summaryText] = useState(`AI-GENERATED SUMMARY:
-
-CONFIDENTIALITY AGREEMENT ANALYSIS
-This is a standard Non-Disclosure Agreement (NDA) between two parties: a "Disclosing Party" sharing confidential information and a "Receiving Party" receiving it.
-
-KEY PROVISIONS:
-
-1. CONFIDENTIAL INFORMATION DEFINITION
-   • Broad definition covering business, financial, technical, and customer information
-   • Includes both existing information and potential future developments
-   • Protected information must have commercial value
-
-2. RECEIVING PARTY OBLIGATIONS
-   • Must maintain strict confidentiality
-   • Can only share with employees/contractors who need to know
-   • Must require third parties to sign similar agreements
-
-3. DURATION
-   • Confidentiality survives agreement termination
-   • Continues until information is no longer a trade secret
-   • Or until written release from Disclosing Party
-
-4. EXCEPTIONS (When confidentiality doesn't apply)
-   • Information becomes public through no fault of Receiving Party
-   • Already known to Receiving Party before disclosure
-   • Independently developed without using confidential information
-   • Received from another source without restriction
-
-5. LEGAL PROTECTIONS
-   • Injunctive relief available for breaches
-   • California law applies
-   • Santa Clara County, CA courts have jurisdiction
-
-RISK ASSESSMENT: MEDIUM
-This is a comprehensive but fairly standard NDA. The broad definition of confidential information could potentially cover too much. Consider narrowing if appropriate for your situation.
-
-RECOMMENDATIONS:
-1. Review the definition of "Confidential Information" to ensure it's not overly broad
-2. Consider adding a "residuals" clause if appropriate
-3. Verify the jurisdiction clause works for your situation
-4. Ensure all exceptions to confidentiality are clearly understood`);
+  const router = useRouter();
+  
+  // Get real data from API or use demo data
+  const [analysisData, setAnalysisData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [documentText, setDocumentText] = useState("");
+  const [summaryText, setSummaryText] = useState("");
 
   // State for text highlighting and AI explanation
   const [highlightedText, setHighlightedText] = useState("");
@@ -111,6 +249,32 @@ RECOMMENDATIONS:
   const [selectedTextRange, setSelectedTextRange] = useState(null);
   const textContainerRef = useRef(null);
 
+  // Load analysis data from sessionStorage
+  useEffect(() => {
+    const storedData = sessionStorage.getItem("analysisResult");
+    
+    if (storedData) {
+      const data = JSON.parse(storedData);
+      setAnalysisData(data);
+      setDocumentText(data.original_text || "");
+      
+      // Format summary with AI analysis
+      const formattedSummary = `AI-GENERATED SUMMARY:\n\n${data.summary}\n\n` +
+        `SIMPLIFIED VERSION:\n${data.simplified_text}\n\n` +
+        `RED FLAGS DETECTED: ${data.red_flags?.length || 0}\n` +
+        (data.red_flags?.length > 0 ? data.red_flags.map((flag, i) => 
+          `\n${i + 1}. [${flag.severity}] ${flag.clause}\n   Concern: ${flag.concern}`
+        ).join('\n') : '');
+      
+      setSummaryText(formattedSummary);
+    } else {
+      // No data - redirect to home
+      router.push("/");
+    }
+    
+    setLoading(false);
+  }, [router]);
+
   // Handle text selection
   const handleTextSelection = () => {
     const selection = window.getSelection();
@@ -119,12 +283,10 @@ RECOMMENDATIONS:
     if (selectedText.length > 0 && selectedText.length < 200) {
       setHighlightedText(selectedText);
       
-      // Store the range for highlighting
       if (selection.rangeCount > 0) {
         setSelectedTextRange(selection.getRangeAt(0));
       }
       
-      // Get position for button
       const range = selection.getRangeAt(0);
       const rect = range.getBoundingClientRect();
       
@@ -138,112 +300,45 @@ RECOMMENDATIONS:
     }
   };
 
-  // Handle AI explanation request
+  // Handle AI explanation request - REAL API CALL
   const handleExplainText = async () => {
     if (!highlightedText) return;
     
     setIsExplaining(true);
     setShowExplainButton(false);
     
-    // Simulate AI processing delay
-    setTimeout(() => {
-      // Mock AI explanations for common legal terms
-      const explanations = {
-        "Confidential Information": `"Confidential Information" refers to any information disclosed by one party to another that:
-• Has commercial value
-• Is not publicly known
-• Would harm the disclosing party if revealed
+    try {
+      const response = await fetch(`${API_BASE_URL}/explain`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text: highlightedText,
+          context: documentText.substring(
+            Math.max(0, documentText.indexOf(highlightedText) - 200),
+            Math.min(documentText.length, documentText.indexOf(highlightedText) + highlightedText.length + 200)
+          )
+        }),
+      });
 
-LEGAL SIGNIFICANCE: This definition establishes what information is protected under the agreement. A broader definition gives more protection to the disclosing party.
-
-COMMON TYPES:
-- Trade secrets
-- Business plans
-- Customer lists
-- Financial data
-- Technical specifications
-
-TIP: Review if the definition is appropriately narrow or broad for your needs.`,
-        
-        "trade secret": `"Trade Secret" refers to information that:
-• Derives economic value from not being generally known
-• Is subject to reasonable efforts to maintain secrecy
-
-EXAMPLES:
-- Coca-Cola's formula
-- Google's search algorithm
-- KFC's original recipe
-
-LEGAL PROTECTION: Trade secrets are protected indefinitely as long as they remain secret (unlike patents which expire).
-
-REQUIREMENTS TO QUALIFY:
-1. Not generally known to the public
-2. Has economic value because it's secret
-3. Subject to reasonable secrecy measures`,
-        
-        "injunctive relief": `"Injunctive Relief" is a court order that either:
-• Requires a party to do something (mandatory injunction)
-• Prohibits a party from doing something (prohibitory injunction)
-
-WHEN USED:
-- To prevent irreparable harm
-- When monetary damages are insufficient
-- To maintain the status quo
-
-COMMON IN NDAs: Used to stop unauthorized disclosure of confidential information immediately.
-
-PROCESS: Can be granted quickly (temporary restraining order) or after hearing (preliminary injunction).`,
-        
-        "Governing Law": `"Governing Law" determines which state's laws will interpret the agreement.
-
-IN THIS AGREEMENT: California law applies, specifically:
-• California Civil Code
-• California Uniform Trade Secrets Act
-• California case law
-
-IMPLICATIONS:
-- Determines how courts interpret contract language
-- Affects available remedies
-- Influences statute of limitations
-
-TIP: Choose a jurisdiction familiar with your type of business and agreements.`
-      };
-      
-      // Find matching explanation or generate generic one
-      let aiExplanation = explanations[highlightedText];
-      
-      if (!aiExplanation) {
-        // Generate generic explanation for unmatched text
-        aiExplanation = `AI ANALYSIS OF: "${highlightedText}"
-
-CONTEXT: This appears to be standard legal terminology commonly found in contracts and agreements.
-
-LIKELY MEANING: The text establishes rights, obligations, or definitions within the legal framework of the document.
-
-COMMON USAGE IN LEGAL DOCUMENTS:
-• Defines relationships between parties
-• Establishes rules and procedures
-• Allocates risks and responsibilities
-• Creates enforceable obligations
-
-RECOMMENDATION: Review this clause carefully with legal counsel to ensure you understand:
-1. Your specific obligations
-2. Potential liabilities
-3. Duration of commitments
-4. Any exceptions or limitations
-
-NOTE: This AI explanation is for informational purposes only and not legal advice.`;
+      if (response.ok) {
+        const result = await response.json();
+        setExplanation(result.explanation);
+      } else {
+        setExplanation(`AI ANALYSIS OF: "${highlightedText}"\n\nUnable to generate explanation at this time. Please try again.`);
       }
-      
-      setExplanation(aiExplanation);
+    } catch (error) {
+      console.error("Explanation error:", error);
+      setExplanation(`AI ANALYSIS OF: "${highlightedText}"\n\nError connecting to AI service. Please ensure the backend is running.`);
+    } finally {
       setIsExplaining(false);
       
-      // Clear the visual highlight
       if (selectedTextRange) {
         window.getSelection().removeAllRanges();
         setSelectedTextRange(null);
       }
-    }, 1500);
+    }
   };
 
   // Close explain button when clicking elsewhere
@@ -275,25 +370,23 @@ NOTE: This AI explanation is for informational purposes only and not legal advic
     document.body.removeChild(element);
   };
 
-  // Demo highlighting helper
-  const demoHighlight = (text) => {
-    const docText = documentText;
-    const startIndex = docText.indexOf(text);
-    
-    if (startIndex !== -1) {
-      const textNode = textContainerRef.current.querySelector('.document-text');
-      const range = document.createRange();
-      range.setStart(textNode.firstChild, startIndex);
-      range.setEnd(textNode.firstChild, startIndex + text.length);
-      
-      const selection = window.getSelection();
-      selection.removeAllRanges();
-      selection.addRange(range);
-      
-      // Trigger the selection handler
-      setTimeout(() => handleTextSelection(), 100);
-    }
-  };
+  // Loading state
+  if (loading) {
+    return (
+      <LayoutWrapper showBackButton={true}>
+        <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white flex items-center justify-center">
+          <div className="text-center">
+            <div className="w-16 h-16 border-4 border-maroon-700 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+            <p className="text-brown-700 text-lg">Loading your analysis...</p>
+          </div>
+        </div>
+      </LayoutWrapper>
+    );
+  }
+
+  if (!analysisData) {
+    return null;
+  }
 
   return (
     <LayoutWrapper showBackButton={true}>
@@ -330,33 +423,14 @@ NOTE: This AI explanation is for informational purposes only and not legal advic
                 </div>
               </div>
 
-              {/* Quick Demo Buttons */}
-              <div className="flex flex-wrap gap-3 mb-6">
-                <div className="text-sm text-brown-600 font-medium">Try highlighting:</div>
-                <button
-                  onClick={() => demoHighlight("Confidential Information")}
-                  className="px-3 py-1 bg-maroon-100 text-maroon-800 rounded-lg text-sm hover:bg-maroon-200 transition-colors"
-                >
-                  "Confidential Information"
-                </button>
-                <button
-                  onClick={() => demoHighlight("trade secret")}
-                  className="px-3 py-1 bg-amber-100 text-amber-800 rounded-lg text-sm hover:bg-amber-200 transition-colors"
-                >
-                  "trade secret"
-                </button>
-                <button
-                  onClick={() => demoHighlight("injunctive relief")}
-                  className="px-3 py-1 bg-blue-100 text-blue-800 rounded-lg text-sm hover:bg-blue-200 transition-colors"
-                >
-                  "injunctive relief"
-                </button>
-                <button
-                  onClick={() => demoHighlight("Governing Law")}
-                  className="px-3 py-1 bg-green-100 text-green-800 rounded-lg text-sm hover:bg-green-200 transition-colors"
-                >
-                  "Governing Law"
-                </button>
+              {/* Info Banner */}
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
+                <div className="flex items-start gap-3">
+                  <Highlighter className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                  <div className="text-sm text-blue-800">
+                    <span className="font-semibold">Interactive Analysis:</span> Select any text in the document below to get an AI-powered explanation. The AI will analyze the legal terminology and provide context.
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -367,7 +441,7 @@ NOTE: This AI explanation is for informational purposes only and not legal advic
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
                       <FileText className="w-6 h-6 text-maroon-700" />
-                      Legal Document
+                      Your Legal Document
                     </h2>
                     <div className="flex items-center gap-2 text-sm text-brown-600">
                       <Highlighter className="w-4 h-4" />
@@ -378,16 +452,17 @@ NOTE: This AI explanation is for informational purposes only and not legal advic
                   <div 
                     ref={textContainerRef}
                     onMouseUp={handleTextSelection}
-                    className="document-text p-8 bg-white rounded-xl border-2 border-amber-300 min-h-[600px] overflow-y-auto text-gray-900 cursor-text selection:bg-maroon-300 selection:text-white"
->
-                    <div className="whitespace-pre-wrap font-sans text-xl leading-10 tracking-wide space-y-6">
+                    className="document-text p-8 bg-amber-50/30 rounded-xl border-2 border-amber-300 min-h-[600px] max-h-[800px] overflow-y-auto text-gray-900 cursor-text selection:bg-maroon-300 selection:text-white"
+                  >
+                    <div className="whitespace-pre-wrap font-sans text-base leading-relaxed space-y-4">
                       {documentText.split('\n\n').map((paragraph, idx) => (
-                        <p key={idx} className="mb-6 last:mb-0">
+                        <p key={idx} className="mb-4 last:mb-0">
                           {paragraph}
                         </p>
                       ))}
                     </div>
                   </div>
+
                   {/* Highlight Explanation Button */}
                   {showExplainButton && (
                     <button
@@ -426,29 +501,40 @@ NOTE: This AI explanation is for informational purposes only and not legal advic
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-gray-900">AI Summary</h3>
-                      <p className="text-sm text-brown-600">Key analysis of entire document</p>
+                      <p className="text-sm text-brown-600">Key analysis of your document</p>
                     </div>
                   </div>
                   
                   <div className="space-y-4">
                     <div className="p-4 bg-white rounded-xl border border-amber-200 max-h-[300px] overflow-y-auto">
-                      <div className="text-brown-800 whitespace-pre-wrap text-sm leading-relaxed">
-                        {summaryText}
+                      <div className="text-brown-800 text-sm leading-relaxed space-y-3">
+                        <p className="font-semibold text-maroon-700">{analysisData.summary}</p>
+                        
+                        {analysisData.red_flags && analysisData.red_flags.length > 0 && (
+                          <div className="mt-4 pt-4 border-t border-amber-200">
+                            <p className="font-semibold text-red-700 mb-2">🚩 Red Flags Detected:</p>
+                            {analysisData.red_flags.map((flag, i) => (
+                              <div key={i} className="mb-2 text-xs">
+                                <span className="font-medium">[{flag.severity}]</span> {flag.clause.substring(0, 50)}...
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                     
                     <div className="grid grid-cols-3 gap-3">
                       <div className="text-center p-3 bg-amber-50 rounded-lg">
-                        <div className="font-bold text-maroon-700">7</div>
-                        <div className="text-xs text-brown-600">Sections</div>
+                        <div className="font-bold text-maroon-700">{analysisData.original_length}</div>
+                        <div className="text-xs text-brown-600">Original</div>
                       </div>
                       <div className="text-center p-3 bg-amber-50 rounded-lg">
-                        <div className="font-bold text-maroon-700">4</div>
-                        <div className="text-xs text-brown-600">Key Risks</div>
+                        <div className="font-bold text-maroon-700">{analysisData.red_flags?.length || 0}</div>
+                        <div className="text-xs text-brown-600">Red Flags</div>
                       </div>
                       <div className="text-center p-3 bg-amber-50 rounded-lg">
-                        <div className="font-bold text-maroon-700">94%</div>
-                        <div className="text-xs text-brown-600">Confidence</div>
+                        <div className="font-bold text-maroon-700">{analysisData.simplified_length}</div>
+                        <div className="text-xs text-brown-600">Simplified</div>
                       </div>
                     </div>
                   </div>
@@ -470,12 +556,12 @@ NOTE: This AI explanation is for informational purposes only and not legal advic
                     <div className="p-4 bg-white rounded-xl border border-blue-200 max-h-[400px] overflow-y-auto">
                       <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-100">
                         <div className="text-sm text-blue-800 font-medium mb-1">You asked about:</div>
-                        <div className="text-blue-900 font-semibold text-lg">"{highlightedText}"</div>
+                        <div className="text-blue-900 font-semibold text-base">"{highlightedText}"</div>
                       </div>
                       
-                      <div className="text-gray-800 whitespace-pre-wrap text-sm leading-relaxed space-y-4">
+                      <div className="text-gray-800 whitespace-pre-wrap text-sm leading-relaxed space-y-3">
                         {explanation.split('\n\n').map((paragraph, idx) => (
-                          <p key={idx} className="mb-3 last:mb-0">
+                          <p key={idx} className="mb-2 last:mb-0">
                             {paragraph}
                           </p>
                         ))}
@@ -496,40 +582,45 @@ NOTE: This AI explanation is for informational purposes only and not legal advic
                       <p className="text-brown-600 text-sm">
                         Select any text in the document to get an instant AI-powered explanation.
                       </p>
-                      <div className="mt-4 text-xs text-brown-500">
-                        Try: "Confidential Information" or "Governing Law"
-                      </div>
                     </div>
                   )}
                 </div>
 
                 {/* Quick Tips */}
                 <div className="bg-white rounded-2xl p-6 border border-amber-100 shadow-lg">
-                  <h3 className="text-lg font-bold text-gray-900 mb-4">Demo Tips</h3>
+                  <h3 className="text-lg font-bold text-gray-900 mb-4">How to Use</h3>
                   <div className="space-y-3">
                     <div className="flex items-start gap-3">
                       <Zap className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
                       <div>
-                        <div className="font-medium text-brown-800">Click demo buttons</div>
-                        <div className="text-sm text-brown-600">To automatically highlight common legal terms</div>
+                        <div className="font-medium text-brown-800">Select text</div>
+                        <div className="text-sm text-brown-600">Drag your cursor over any legal term</div>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <Shield className="w-5 h-5 text-maroon-600 flex-shrink-0 mt-0.5" />
                       <div>
-                        <div className="font-medium text-brown-800">Select any text</div>
-                        <div className="text-sm text-brown-600">Drag your cursor over text to highlight it</div>
+                        <div className="font-medium text-brown-800">Get AI explanation</div>
+                        <div className="text-sm text-brown-600">Click "Explain" button that appears</div>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <Users className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
                       <div>
-                        <div className="font-medium text-brown-800">Real explanations</div>
-                        <div className="text-sm text-brown-600">Pre-programmed AI responses for demo terms</div>
+                        <div className="font-medium text-brown-800">View results</div>
+                        <div className="text-sm text-brown-600">See explanation in the sidebar</div>
                       </div>
                     </div>
                   </div>
                 </div>
+
+                {/* Back Button */}
+                <button
+                  onClick={() => router.push("/")}
+                  className="w-full py-3 bg-gradient-to-r from-maroon-700 to-brown-800 text-white font-semibold rounded-xl hover:from-maroon-800 hover:to-brown-900 transition-all shadow-lg"
+                >
+                  Analyze Another Document
+                </button>
               </div>
             </div>
           </div>
