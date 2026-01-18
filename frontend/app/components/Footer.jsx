@@ -53,14 +53,14 @@ export default function Footer() {
             
             {/* Contact Info */}
             <div className="space-y-4">
-              {/* <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-amber-300" />
                 <span className="text-amber-200">contact@legalease.ai</span>
-              </div> */}
-              {/* <div className="flex items-center gap-3">
+              </div>
+              <div className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-amber-300" />
                 <span className="text-amber-200">(555) 123-4567</span>
-              </div> */}
+              </div> 
               <div className="flex items-center gap-3">
                 <MapPin className="w-5 h-5 text-amber-300" />
                 <span className="text-amber-200">Santa Cruz, California</span>
@@ -124,7 +124,7 @@ export default function Footer() {
               <Linkedin className="w-6 h-6" />
             </a>
             <a
-              href="https://github.com"
+              href="https://github.com/tishagangar7/LegalEase"
               target="_blank"
               rel="noopener noreferrer"
               className="text-amber-200/70 hover:text-amber-100 transition-colors"

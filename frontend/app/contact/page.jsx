@@ -80,7 +80,7 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <h3 className="font-semibold text-gray-900">Office</h3>
-                        <p className="text-brown-600">123 Innovation Drive</p>
+                        <p className="text-brown-600">1156 High Street</p>
                         <p className="text-brown-600">Santa Cruz, CA 95064</p>
                       </div>
                     </div>
