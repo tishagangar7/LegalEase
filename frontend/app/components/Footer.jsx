@@ -27,7 +27,9 @@ export default function Footer() {
       // { name: "Help Center", href: "/help" },
       { name: "Contact Us", href: "/contact" },
       // { name: "Status", href: "/status" },
-      { name: "Documentation", href: "/docs" },
+      { name: "Documentation", 
+        href: "https://devpost.com/software/legalease-c2xwto",
+        external: true },
     ],
   };
 
