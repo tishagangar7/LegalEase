@@ -120,12 +120,10 @@ export default function TeamPage() {
                   {/* Member Header */}
                   <div className="text-center mb-8">
                     <div className={`w-24 h-24 bg-gradient-to-br ${member.color} rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg`}>
-                      <Image 
-                        src={member.image}
+                      <img 
+                        src={member.image.src}
                         alt={member.name}
                         className="w-full h-full object-cover"
-                        width={96}
-                        height={96}
                         />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">
