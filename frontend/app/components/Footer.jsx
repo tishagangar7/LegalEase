@@ -8,25 +8,25 @@ export default function Footer() {
     Product: [
       { name: "Features", href: "/features" },
       { name: "Examples", href: "/examples" },
-      { name: "Pricing", href: "/pricing" },
-      { name: "API", href: "/api" },
+      // { name: "Pricing", href: "/pricing" },
+      // { name: "API", href: "/api" },
     ],
     Company: [
       { name: "About", href: "/about" },
-      { name: "Blog", href: "/blog" },
-      { name: "Careers", href: "/careers" },
-      { name: "Press", href: "/press" },
+      { name: "Team", href: "/team" },
+      // { name: "Careers", href: "/careers" },
+      // { name: "Press", href: "/press" },
     ],
-    Legal: [
-      { name: "Privacy Policy", href: "/privacy" },
-      { name: "Terms of Service", href: "/terms" },
-      { name: "Cookie Policy", href: "/cookies" },
-      { name: "Compliance", href: "/compliance" },
-    ],
+    // Legal: [
+    //   { name: "Privacy Policy", href: "/privacy" },
+    //   { name: "Terms of Service", href: "/terms" },
+    //   { name: "Cookie Policy", href: "/cookies" },
+    //   { name: "Compliance", href: "/compliance" },
+    // ],
     Support: [
-      { name: "Help Center", href: "/help" },
+      // { name: "Help Center", href: "/help" },
       { name: "Contact Us", href: "/contact" },
-      { name: "Status", href: "/status" },
+      // { name: "Status", href: "/status" },
       { name: "Documentation", href: "/docs" },
     ],
   };
@@ -53,14 +53,14 @@ export default function Footer() {
             
             {/* Contact Info */}
             <div className="space-y-4">
-              <div className="flex items-center gap-3">
+              {/* <div className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-amber-300" />
                 <span className="text-amber-200">contact@legalease.ai</span>
-              </div>
-              <div className="flex items-center gap-3">
+              </div> */}
+              {/* <div className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-amber-300" />
                 <span className="text-amber-200">(555) 123-4567</span>
-              </div>
+              </div> */}
               <div className="flex items-center gap-3">
                 <MapPin className="w-5 h-5 text-amber-300" />
                 <span className="text-amber-200">Santa Cruz, California</span>

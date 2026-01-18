@@ -13,7 +13,7 @@ export default function Header({ showBackButton = false }) {
     { name: "Home", href: "/" },
     { name: "Features", href: "/features" },
     { name: "Examples", href: "/examples" },
-    { name: "Pricing", href: "/pricing" },
+    // { name: "Pricing", href: "/pricing" },
     { name: "Contact", href: "/contact" },
     { name: "About", href: "/about" },
   ];

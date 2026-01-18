@@ -176,7 +176,7 @@
 //                 <div className="space-y-6">
 //                   {[
 //                     { icon: Zap, title: "Lightning Fast", desc: "Summarize 50-page documents in under 30 seconds" },
-//                     // { icon: Shield, title: "Military-Grade Security", desc: "End-to-end encryption with automatic file deletion" },
+//                     // { icon: Shield, title: "Confidentiality", desc: "End-to-end encryption with automatic file deletion" },
 //                     { icon: Sparkles, title: "AI-Powered Accuracy", desc: "95% accuracy rate on complex legal terminology" },
 //                     { icon: Users, title: "Team Collaboration", desc: "Share summaries with colleagues securely" },
 //                   ].map((feature, idx) => (
@@ -347,10 +347,10 @@ export default function LandingPage() {
         {/* Hero Section */}
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-amber-100 text-brown-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
+            {/* <div className="inline-flex items-center gap-2 bg-amber-100 text-brown-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Zap className="w-4 h-4" />
               Trusted by 500+ legal professionals
-            </div>
+            </div> */}
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
               Legal Documents
               <span className="block text-maroon-700">Made Simple</span>
@@ -492,7 +492,8 @@ export default function LandingPage() {
                 </h3>
                 <div className="space-y-6">
                   {[
-                    { icon: Zap, title: "Lightning Fast", desc: "Summarize 50-page documents in under 30 seconds" },
+                    { icon: Zap, title: "Lightning Fast", desc: "Summarize multi-page documents in under 30 seconds" },
+                    { icon: Shield, title: "Confidentiality", desc: "End-to-end encryption with automatic file deletion" },
                     { icon: Sparkles, title: "AI-Powered Accuracy", desc: "95% accuracy rate on complex legal terminology" },
                     { icon: Users, title: "Team Collaboration", desc: "Share summaries with colleagues securely" },
                   ].map((feature, idx) => (
@@ -532,7 +533,7 @@ export default function LandingPage() {
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-4">
+              {/* <div className="grid grid-cols-3 gap-4">
                 <div className="bg-white p-6 rounded-2xl border border-amber-100 text-center shadow-sm">
                   <div className="text-3xl font-bold text-maroon-700">10K+</div>
                   <div className="text-brown-600 text-sm mt-1">Documents</div>
@@ -545,7 +546,7 @@ export default function LandingPage() {
                   <div className="text-3xl font-bold text-maroon-700">4.9★</div>
                   <div className="text-brown-600 text-sm mt-1">Rating</div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
