@@ -434,10 +434,11 @@ export default function DocumentPage() {
               </div>
             </div>
 
-            <div className="grid lg:grid-cols-3 gap-8">
-              {/* Main Document Text (2/3 width) */}
-              <div className="lg:col-span-2">
-                <div className="bg-white rounded-2xl p-8 shadow-xl border border-amber-100 relative">
+            {/* CHANGED HERE: Changed from lg:grid-cols-3 to lg:grid-cols-2 for 50/50 split */}
+            <div className="grid lg:grid-cols-2 gap-8">
+              {/* Main Document Text (50% width) */}
+              <div className="flex flex-col">
+                <div className="bg-white rounded-2xl p-8 shadow-xl border border-amber-100 relative flex-1">
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
                       <FileText className="w-6 h-6 text-maroon-700" />
@@ -452,7 +453,7 @@ export default function DocumentPage() {
                   <div 
                     ref={textContainerRef}
                     onMouseUp={handleTextSelection}
-                    className="document-text p-8 bg-amber-50/30 rounded-xl border-2 border-amber-300 min-h-[600px] max-h-[800px] overflow-y-auto text-gray-900 cursor-text selection:bg-maroon-300 selection:text-white"
+                    className="document-text p-8 bg-amber-50/30 rounded-xl border-2 border-amber-300 h-[calc(100vh-300px)] min-h-[600px] overflow-y-auto text-gray-900 cursor-text selection:bg-maroon-300 selection:text-white"
                   >
                     <div className="whitespace-pre-wrap font-sans text-base leading-relaxed space-y-4">
                       {documentText.split('\n\n').map((paragraph, idx) => (
@@ -491,10 +492,10 @@ export default function DocumentPage() {
                 </div>
               </div>
 
-              {/* AI Summary & Explanation Sidebar (1/3 width) */}
-              <div className="space-y-8">
+              {/* AI Summary & Explanation Sidebar (50% width) */}
+              <div className="flex flex-col space-y-8">
                 {/* AI Summary */}
-                <div className="bg-gradient-to-b from-maroon-50 to-white rounded-2xl p-6 border border-maroon-100 shadow-lg">
+                <div className="bg-gradient-to-b from-maroon-50 to-white rounded-2xl p-6 border border-maroon-100 shadow-lg flex-1">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="p-3 bg-white rounded-xl shadow">
                       <Sparkles className="w-6 h-6 text-maroon-700" />
@@ -505,8 +506,8 @@ export default function DocumentPage() {
                     </div>
                   </div>
                   
-                  <div className="space-y-4">
-                    <div className="p-4 bg-white rounded-xl border border-amber-200 max-h-[300px] overflow-y-auto">
+                  <div className="space-y-4 h-[calc(100%-80px)]">
+                    <div className="p-4 bg-white rounded-xl border border-amber-200 h-[calc(100%-100px)] overflow-y-auto">
                       <div className="text-brown-800 text-sm leading-relaxed space-y-3">
                         <p className="font-semibold text-maroon-700">{analysisData.summary}</p>
                         
@@ -541,7 +542,7 @@ export default function DocumentPage() {
                 </div>
 
                 {/* AI Explanation Panel */}
-                <div className="bg-gradient-to-b from-blue-50 to-white rounded-2xl p-6 border border-blue-100 shadow-lg">
+                <div className="bg-gradient-to-b from-blue-50 to-white rounded-2xl p-6 border border-blue-100 shadow-lg flex-1">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="p-3 bg-white rounded-xl shadow">
                       <MessageSquare className="w-6 h-6 text-blue-700" />
@@ -553,7 +554,7 @@ export default function DocumentPage() {
                   </div>
                   
                   {explanation ? (
-                    <div className="p-4 bg-white rounded-xl border border-blue-200 max-h-[400px] overflow-y-auto">
+                    <div className="p-4 bg-white rounded-xl border border-blue-200 h-[calc(100%-80px)] overflow-y-auto">
                       <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-100">
                         <div className="text-sm text-blue-800 font-medium mb-1">You asked about:</div>
                         <div className="text-blue-900 font-semibold text-base">"{highlightedText}"</div>
@@ -574,7 +575,7 @@ export default function DocumentPage() {
                       </div>
                     </div>
                   ) : (
-                    <div className="p-8 text-center">
+                    <div className="p-8 text-center h-[calc(100%-80px)] flex flex-col justify-center">
                       <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-2xl flex items-center justify-center">
                         <Highlighter className="w-8 h-8 text-blue-600" />
                       </div>
@@ -586,41 +587,42 @@ export default function DocumentPage() {
                   )}
                 </div>
 
-                {/* Quick Tips */}
-                <div className="bg-white rounded-2xl p-6 border border-amber-100 shadow-lg">
-                  <h3 className="text-lg font-bold text-gray-900 mb-4">How to Use</h3>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <Zap className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <div className="font-medium text-brown-800">Select text</div>
-                        <div className="text-sm text-brown-600">Drag your cursor over any legal term</div>
+                {/* Quick Tips & Back Button */}
+                <div className="space-y-4">
+                  <div className="bg-white rounded-2xl p-6 border border-amber-100 shadow-lg">
+                    <h3 className="text-lg font-bold text-gray-900 mb-4">How to Use</h3>
+                    <div className="space-y-3">
+                      <div className="flex items-start gap-3">
+                        <Zap className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <div className="font-medium text-brown-800">Select text</div>
+                          <div className="text-sm text-brown-600">Drag your cursor over any legal term</div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <Shield className="w-5 h-5 text-maroon-600 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <div className="font-medium text-brown-800">Get AI explanation</div>
-                        <div className="text-sm text-brown-600">Click "Explain" button that appears</div>
+                      <div className="flex items-start gap-3">
+                        <Shield className="w-5 h-5 text-maroon-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <div className="font-medium text-brown-800">Get AI explanation</div>
+                          <div className="text-sm text-brown-600">Click "Explain" button that appears</div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <Users className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <div className="font-medium text-brown-800">View results</div>
-                        <div className="text-sm text-brown-600">See explanation in the sidebar</div>
+                      <div className="flex items-start gap-3">
+                        <Users className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <div className="font-medium text-brown-800">View results</div>
+                          <div className="text-sm text-brown-600">See explanation in the sidebar</div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Back Button */}
-                <button
-                  onClick={() => router.push("/")}
-                  className="w-full py-3 bg-gradient-to-r from-maroon-700 to-brown-800 text-white font-semibold rounded-xl hover:from-maroon-800 hover:to-brown-900 transition-all shadow-lg"
-                >
-                  Analyze Another Document
-                </button>
+                  <button
+                    onClick={() => router.push("/")}
+                    className="w-full py-3 bg-gradient-to-r from-maroon-700 to-brown-800 text-white font-semibold rounded-xl hover:from-maroon-800 hover:to-brown-900 transition-all shadow-lg"
+                  >
+                    Analyze Another Document
+                  </button>
+                </div>
               </div>
             </div>
           </div>
