@@ -66,7 +66,7 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Team */}
+            {/* Team
             <div className="mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Our Team</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -79,7 +79,7 @@ export default function AboutPage() {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
 
             {/* CruzHacks */}
             <div className="text-center p-8 bg-gradient-to-r from-maroon-50 to-purple-50 rounded-2xl border border-maroon-100">

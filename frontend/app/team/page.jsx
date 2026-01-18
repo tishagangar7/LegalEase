@@ -21,7 +21,10 @@ export default function TeamPage() {
       ],
       funFact: "Once held a lion cub",
       image: tishaImage,
-      color: "from-blue-600 to-cyan-600"
+      color: "from-blue-600 to-cyan-600",
+      github: "https://github.com/tishagangar7",
+      linkedin: "https://www.linkedin.com/in/tisha-gangar-700583350/",
+      email: "tgangar@ucsc.edu"
     },
     {
       name: "Lillian Hamilton",
@@ -35,7 +38,10 @@ export default function TeamPage() {
       ],
       funFact: "Loves dark chocolate",
       image: lillianImage,
-      color: "from-maroon-700 to-purple-700"
+      color: "from-maroon-700 to-purple-700",
+      github: "https://github.com/Lillypadhamilton",
+      linkedin: "https://www.linkedin.com/in/lillian-hamilton/",
+      email: "lihamilt@ucsc.edu"
     },
     {
       name: "Inika Bhargava",
@@ -49,7 +55,10 @@ export default function TeamPage() {
       ],
       funFact: "Plays the haromica",
       image: inikaImage,
-      color: "from-amber-600 to-orange-600"
+      color: "from-amber-600 to-orange-600",
+      github: "https://github.com/in1ka",
+      linkedin: "https://www.linkedin.com/in/inika-bhargava/",
+      email: "ibhargav@ucsc.edu@ucsc.edu"
     }
   ];
 
@@ -120,12 +129,10 @@ export default function TeamPage() {
                   {/* Member Header */}
                   <div className="text-center mb-8">
                     <div className={`w-24 h-24 bg-gradient-to-br ${member.color} rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg`}>
-                      <Image 
-                        src={member.image}
+                      <img 
+                        src={member.image.src}
                         alt={member.name}
                         className="w-full h-full object-cover"
-                        width={96}
-                        height={96}
                         />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">
@@ -182,17 +189,42 @@ export default function TeamPage() {
                   </div>
 
                   {/* Social Links */}
-                  <div className="flex justify-center gap-4 mt-6 pt-6 border-t border-amber-100">
-                    <a href="#" className="p-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
-                      <Github className="w-5 h-5" />
+                <div className="flex justify-center gap-4 mt-6 pt-6 border-t border-amber-100">
+                {member.github && (
+                    <a 
+                    href={member.github} 
+                    target="_blank" 
+                    rel="noopener noreferrer nofollow"
+                    className="p-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors hover:scale-110 transform"
+                    aria-label={`Visit ${member.name}'s GitHub profile`}
+                    title="GitHub Profile"
+                    >
+                    <Github className="w-5 h-5" />
                     </a>
-                    <a href="#" className="p-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors">
-                      <Linkedin className="w-5 h-5" />
+                )}
+                {member.linkedin && (
+                    <a 
+                    href={member.linkedin} 
+                    target="_blank" 
+                    rel="noopener noreferrer nofollow"
+                    className="p-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors hover:scale-110 transform"
+                    aria-label={`Visit ${member.name}'s LinkedIn profile`}
+                    title="LinkedIn Profile"
+                    >
+                    <Linkedin className="w-5 h-5" />
                     </a>
-                    <a href="#" className="p-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors">
-                      <Mail className="w-5 h-5" />
+                )}
+                {member.email && (
+                    <a 
+                    href={member.email.startsWith('mailto:') ? member.email : `mailto:${member.email}`}
+                    className="p-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors hover:scale-110 transform"
+                    aria-label={`Email ${member.name}`}
+                    title="Send Email"
+                    >
+                    <Mail className="w-5 h-5" />
                     </a>
-                  </div>
+                )}
+                </div>
                 </div>
               ))}
             </div>
@@ -244,7 +276,7 @@ export default function TeamPage() {
                     Contact the Team
                   </a>
                   <a
-                    href="https://github.com"
+                    href="https://github.com/tishagangar7/LegalEase"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-8 py-4 bg-transparent border-2 border-amber-300 text-white font-bold rounded-xl hover:bg-white/10 transition-colors"
