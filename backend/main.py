@@ -1,9 +1,10 @@
 #main.py
 
+import os
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import io
+from dotenv import load_dotenv
 from pdf_parser import extract_text_from_file
 from simplifier import (
     simplify_legal_text, 
@@ -12,12 +13,29 @@ from simplifier import (
     explain_legal_term
 )
 
+load_dotenv()
+
+
+def get_allowed_origins() -> list[str]:
+    """
+    Read a comma-separated origin allow-list from env.
+    Falls back to local frontend URLs for development.
+    """
+    raw_origins = os.getenv("FRONTEND_ORIGINS", "")
+    parsed_origins = [origin.strip() for origin in raw_origins.split(",") if origin.strip()]
+    if parsed_origins:
+        return parsed_origins
+    return [
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ]
+
 app = FastAPI(title="LegalEase API", version="1.0")
 
 # Enable CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=get_allowed_origins(),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -89,6 +107,8 @@ async def analyze_document(
             "reading_level": reading_level
         }
     
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -181,6 +201,8 @@ async def explain_text(request: ExplainRequest):
             "explanation": explanation
         }
     
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

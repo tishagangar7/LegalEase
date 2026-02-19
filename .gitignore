@@ -15,6 +15,10 @@ frontend/.env.local
 # misc
 .DS_Store
 
+# Python cache/build
+__pycache__/
+*.py[cod]
+
 # secrets
 .env
 .env.local
